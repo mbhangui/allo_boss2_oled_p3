@@ -7,7 +7,7 @@ User=root
 Group=root
 
 Type=simple
-ExecStart=/usr/bin/python3 /opt/boss2_oled_p3/boss2_oled.py
+ExecStart=/usr/bin/python3 /hom/pi/oled/boss2_oled.py
 Restart=on-abort
 
 [Install]
