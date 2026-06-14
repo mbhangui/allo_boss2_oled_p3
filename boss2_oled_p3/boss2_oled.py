@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import sys
+import signal
 import RPi.GPIO as GPIO
 import time
 import threading
@@ -38,7 +39,6 @@ from Hardware.SH1106.SH1106FontLib import *
 from Hardware.I2CConfig import *
 import IRModule
 
-
 irPin = 16  
 sw1 = 14      
 sw2 = 15      
@@ -54,11 +54,11 @@ rst = 12
 #sw5 = 18        
 #rst = 32 
 
-h_name = "Allo"
-h_ip = "192.168.10.121"
-w_ip = "WL:192.168.211.1"
+h_name = "RPI"
+h_ip = "x.x.x.x"
+w_ip = "WL:x.x.x.y"
 a_card = "Boss2"
-a_card1 = "BOSS2"
+a_card1 = "Alsa BOSS2"
 indx = 0
 m_indx = 1
 f_indx = 1
@@ -657,7 +657,7 @@ def network1(ifname):
     return ip_address
     
 
-def init_gpio():	
+def init_gpio():
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(sw1, GPIO.IN)
@@ -678,6 +678,15 @@ def init_gpio_bcm():
     GPIO.setup(sw5, GPIO.IN)
     GPIO.setup(irPin,GPIO.IN)   
     time.sleep(0.1)
+
+def shutdown_handler(signum, frame):
+    """Clears the screen and shuts down the script gracefully."""
+    try:
+        lcd.clearScreen()
+    except Exception as e:
+        print(f"Error clearing screen on shutdown: {e}")
+    sys.exit(0)
+
 
 def main():
 	global m_indx
@@ -726,12 +735,16 @@ def main():
 	LED_FLAG = 0
 	led_off_counter = 1
 	i2cConfig()
+
+	signal.signal(signal.SIGTERM, shutdown_handler)
+	signal.signal(signal.SIGINT, shutdown_handler)
+
 	lcd = SH1106LCD()
 	h_ip = network1('eth0')
 	w_ip = network1('wlan0')
 	lcd.displayStringNumber(h_ip,0,0)
 	lcd.displayStringNumber(w_ip,6,0)
-	h_name = "HOST:%s" % socket.gethostname()
+	h_name = "Host: %s" % socket.gethostname()
 	lcd.displayString(h_name,2,0)
 	lcd.displayString(a_card1,4,0)
 	time.sleep(5)
@@ -894,7 +907,7 @@ def main():
 		            setMuteStatus(dig_ctrl)
 		    elif scr_num == 1 :
 		        if m_indx == 1 : 
-		       	    bootScr()
+		            bootScr()
 		        elif m_indx == 2 :
 		            hvScr4()
 		        elif m_indx == 3 :
