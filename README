@@ -1,0 +1,19 @@
+This BOSS2 OLED application runs on Python 3.x 
+This application using for displaying status
+and controlling Allo boss2 amixer controls
+volume settings
+Filter settings
+RMS voltage control
+
+
+Steps for Installation
+----------------------
+
+apt-get -y update
+apt-get install python3
+apt-get install python3-lgpio
+apt-get install python3-pil
+apt-get install python3-rpi-lgpio
+apt-get install python3-smbus
+
+enable i2c manually or check $i2cdetect -y 1 working
