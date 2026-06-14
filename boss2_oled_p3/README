@@ -6,39 +6,14 @@ Filter settings
 RMS voltage control
 
 
-Tested on Below OS Images
-roPieee, roPieee XL ,Moode , Dietpi , Volumio, Max2play
-
-
 Steps for Installation
 ----------------------
 
-copy tar file to location /opt/
-
-Loging as root user either using sudo or password
-
-download boss2_oled_p3.tar.gz from the link using wget or scp
-
-	
-	cd /opt/
-        wget https://raw.githubusercontent.com/allocom/allo_boss2_oled_p3/main/boss2_oled_p3.tar.gz	
-	tar -xzvf boss2_oled_p3.tar.gz
-	cd boss2_oled_p3
-	./install_boss2_oled.sh 
-
-Automatically downloads and installing  required packages for respective OS and reboots.
-every reboot starts boss2_oled display , checks the Boss2 sound device on startup, if no boss2 hardware application exit. 
-
-
-Other OS 
---------
-if Python3 not installed install manually
-required packages after installing python2
 apt-get -y update
 apt-get install python3
-apt-get -y install python3-rpi.gpio ( if doesnt work install pip and then run pip2 install RPi.GPIO==0.7.0)
-apt-get -y install python3-pip
-apt-get -y install python3-smbus (if does not work then run pip2 install smbus)
-apt-get -y install python3-pil          or       apt-get -y install python3-pillow
+apt-get install python3-lgpio
+apt-get install python3-pil
+apt-get install python3-rpi-lgpio
+apt-get install python3-smbus
 
 enable i2c manually or check $i2cdetect -y 1 working
