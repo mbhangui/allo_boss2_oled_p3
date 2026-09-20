@@ -46,13 +46,6 @@ sw3 = 23
 sw4 = 8    
 sw5 = 24        
 rst = 12 
-#irPin = 36  
-#sw1 = 8      
-#sw2 = 10      
-#sw3 = 16        
-#sw4 = 24    
-#sw5 = 18        
-#rst = 32 
 
 h_name = "RPI"
 h_ip = "x.x.x.x"
@@ -657,24 +650,13 @@ def network1(ifname):
     return ip_address
     
 
-def init_gpio():
-        GPIO.setwarnings(False)
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(sw1, GPIO.IN)
-        GPIO.setup(sw2, GPIO.IN)
-        GPIO.setup(sw3, GPIO.IN)
-        GPIO.setup(sw4, GPIO.IN)
-        GPIO.setup(sw5, GPIO.IN)
-        GPIO.setup(irPin,GPIO.IN)   
-        time.sleep(0.1)
-
 def init_gpio_bcm():
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(sw1, GPIO.IN)
     GPIO.setup(sw2, GPIO.IN)
     GPIO.setup(sw3, GPIO.IN)
-    GPIO.setup(sw4, GPIO.IN)
+#   GPIO.setup(sw4, GPIO.IN)
     GPIO.setup(sw5, GPIO.IN)
     GPIO.setup(irPin,GPIO.IN)   
     time.sleep(0.1)
@@ -826,12 +808,12 @@ def main():
 			time.sleep(0.04)
 			bs3 = 1
 			led_off_counter = 0
-		if(GPIO.input(sw4) == GPIO.HIGH):
-			time.sleep(0.04)
-		else :
-			time.sleep(0.04)
-			bs4 = 1
-			led_off_counter = 0
+#		if(GPIO.input(sw4) == GPIO.HIGH):
+#			time.sleep(0.04)
+#		else :
+#			time.sleep(0.04)
+#			bs4 = 1
+#			led_off_counter = 0
 		if(GPIO.input(sw5) == GPIO.HIGH):
 			time.sleep(0.04)
 		else :
